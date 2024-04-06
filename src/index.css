@@ -6,10 +6,6 @@
   html {
     @apply overflow-y-scroll;
   }
-
-  html, body {
-    @apply bg-slate-900
-  }
   :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
