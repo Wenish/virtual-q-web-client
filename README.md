@@ -1,30 +1,46 @@
-# React + TypeScript + Vite
+# Project Virtual Q Web Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Name
+Virtual Q Web Client
 
-Currently, two official plugins are available:
+## Description
+It's a web app which allows the user to manage virtual ticket queues.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Developer setup (local setup)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Install Node LTS and NPM on your machine. https://nodejs.org/en
 
-- Configure the top-level `parserOptions` property like this:
+2. Install the project dependencies.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Run this command in the root folder of the project:
+`npm ci`
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Start development server
+
+3.1 You also need to start the Backend API "Virtual Q API". (Check out the other Readme for detail instructions for that.)
+
+Run this command in the root folder of the project:
+`npm run dev`
+
+## Build project to make it ready for deployment
+
+1. Install dependencies
+
+Run this command in the root folder of the project:
+`npm ci`
+
+2. Build application
+
+Run this command in the root folder of the project:
+`npm run build`
+
+
+## Contributing
+This project is a solo project.
+
+## Authors and acknowledgment
+- Jonas Voland
+
+## License
+MIT
