@@ -35,6 +35,30 @@ Run this command in the root folder of the project:
 Run this command in the root folder of the project:
 `npm run build`
 
+## Run Lint
+
+1. Install dependencies
+
+Run this command in the root folder of the project:
+`npm ci`
+
+2. Run Lint
+
+Run this command in the root folder of the project:
+`npm run lint`
+
+## Run Unit Tests
+
+1. Install dependencies
+
+Run this command in the root folder of the project:
+`npm ci`
+
+2. Run Tests
+
+Run this command in the root folder of the project:
+`npm run test`
+
 
 ## Contributing
 This project is a solo project.
