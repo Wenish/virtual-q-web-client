@@ -5,7 +5,7 @@ Virtual Q Web Client
 
 ## Description
 It's a web app which allows the user to manage virtual ticket queues.
-
+In this repository is the frontend code of the web app.
 
 ## Developer setup (local setup)
 
