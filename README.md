@@ -9,7 +9,7 @@ In this repository is the frontend code of the web app.
 
 ## Developer setup (local setup)
 
-1. Install Node LTS and NPM on your machine. https://nodejs.org/en
+1. Install Node LTS and NPM on your machine. https://nodejs.org/
 
 2. Install the project dependencies.
 
@@ -20,7 +20,7 @@ Run this command in the root folder of the project:
 
 3.1 You also need to start the Backend API "Virtual Q API". (Check out the other Readme for detail instructions for that.)
 
-Run this command in the root folder of the project:
+3.2 Run this command in the root folder of the project:
 `npm run dev`
 
 ## Build project to make it ready for deployment
