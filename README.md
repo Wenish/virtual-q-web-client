@@ -7,56 +7,50 @@ Virtual Q Web Client
 It's a web app which allows the user to manage virtual ticket queues.
 In this repository is the frontend code of the web app.
 
-## Developer setup (local setup)
+## Developer setup
 
-1. Install Node LTS and NPM on your machine. https://nodejs.org/
+#### 1. Install the latest Node LTS v20.x and NPM on your machine.
 
-2. Install the project dependencies.
+https://nodejs.org/
+
+#### 2. Install the project dependencies.
 
 Run this command in the root folder of the project:
+
 `npm ci`
 
-3. Start development server
+#### 3. Start development server
 
-3.1 You also need to start the Backend API "Virtual Q API". (Check out the other Readme for detail instructions for that.)
+#### 3.1 You also need to start the Backend API "Virtual Q API". (Check out the other Readme for detail instructions for that.)
 
-3.2 Run this command in the root folder of the project:
+#### 3.2 Run this command in the root folder of the project:
+
 `npm run dev`
 
 ## Build project to make it ready for deployment
 
-1. Install dependencies
+#### 1. Install dependencies
 
 Run this command in the root folder of the project:
+
 `npm ci`
 
-2. Build application
+#### 2. Build application
 
 Run this command in the root folder of the project:
+
 `npm run build`
 
 ## Run Lint
 
-1. Install dependencies
-
 Run this command in the root folder of the project:
-`npm ci`
 
-2. Run Lint
-
-Run this command in the root folder of the project:
 `npm run lint`
 
 ## Run Unit Tests
 
-1. Install dependencies
-
 Run this command in the root folder of the project:
-`npm ci`
 
-2. Run Tests
-
-Run this command in the root folder of the project:
 `npm run test`
 
 
