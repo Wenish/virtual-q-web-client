@@ -10,7 +10,7 @@ const PageTicketNew = () => {
       </p>
       <div className="grid justify-center">
         <button className="btn btn-primary btn-lg">
-          Press here to get ticket
+          Press here to get a ticket
         </button>
       </div>
     </div>
