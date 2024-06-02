@@ -3,9 +3,11 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import { AccessTokenData, AuthContext, User } from '../contexts/AuthContext'
 
 const localStorageUserKey = 'user'
-const localStorageTokenKey = 'token'
+const localStorageAccessTokenKey = 'accessToken'
+const localStorageRefreshTokenKey = 'refreshToken'
 
 const endpointToken = `${import.meta.env.VITE_HOST_API}/auth/token/`
+const endpointTokenRefresh = `${import.meta.env.VITE_HOST_API}/auth/token/refresh/`
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(() => {
@@ -14,7 +16,11 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   })
 
   const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem(localStorageTokenKey)
+    return localStorage.getItem(localStorageAccessTokenKey)
+  })
+
+  const [refreshToken, setRefreshToken] = useState<string | null>(() => {
+    return localStorage.getItem(localStorageRefreshTokenKey)
   })
 
   const parseJwt = (token: string): AccessTokenData | null => {
@@ -35,21 +41,26 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       password,
     })
     const user: User = { username }
-    const token: string = response.data.access
+    const accessToken: string = response.data.access
+    const refreshToken: string = response.data.refresh
 
     setUser(user)
-    setToken(token)
+    setToken(accessToken)
+    setRefreshToken(refreshToken)
 
     localStorage.setItem(localStorageUserKey, JSON.stringify(user))
-    localStorage.setItem(localStorageTokenKey, token)
+    localStorage.setItem(localStorageAccessTokenKey, accessToken)
+    localStorage.setItem(localStorageRefreshTokenKey, refreshToken)
   }
 
   const logout = () => {
     setUser(null)
     setToken(null)
+    setRefreshToken(null)
 
     localStorage.removeItem(localStorageUserKey)
-    localStorage.removeItem(localStorageTokenKey)
+    localStorage.removeItem(localStorageAccessTokenKey)
+    localStorage.removeItem(localStorageRefreshTokenKey)
   }
 
   const decodedToken = () => {
@@ -67,21 +78,48 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     return !!user && !!token && !isTokenExpired()
   }
 
+  const refreshAccessToken = async () => {
+    try {
+      if (!refreshToken) throw 'No refresh token'
+
+      const response = await axios.post<
+        AuthTokenRefreshResponse,
+        AxiosResponse<AuthTokenRefreshResponse, AuthTokenRefreshBody>,
+        AuthTokenRefreshBody
+      >(endpointTokenRefresh, {
+        refresh: refreshToken,
+      })
+
+      setToken(response.data.access)
+    } catch (error) {
+      console.error('Failed to refresh access token:', error)
+      logout()
+    }
+  }
+
   useEffect(() => {
-    const userJson = localStorage.getItem(localStorageUserKey)
-    if (userJson) {
-      setUser(JSON.parse(userJson))
+    const checkTokenExpiry = () => {
+      if (isTokenExpired()) {
+        refreshAccessToken()
+      }
     }
 
-    const savedToken = localStorage.getItem(localStorageTokenKey)
-    if (savedToken) {
-      setToken(savedToken)
-    }
-  }, [])
+    const intervalId = setInterval(checkTokenExpiry, 60000)
+
+    return () => clearInterval(intervalId)
+  }, [token])
 
   return (
     <AuthContext.Provider
-      value={{ user, token, decodedToken, login, logout, isLoggedIn }}
+      value={{
+        user,
+        token,
+        refreshToken,
+        decodedToken,
+        login,
+        logout,
+        isLoggedIn,
+      }}
     >
       {children}
     </AuthContext.Provider>
@@ -98,4 +136,12 @@ type AuthTokenResponse = {
 type AuthTokenBody = {
   username: string
   password: string
+}
+
+type AuthTokenRefreshResponse = {
+  access: string
+}
+
+type AuthTokenRefreshBody = {
+  refresh: string
 }

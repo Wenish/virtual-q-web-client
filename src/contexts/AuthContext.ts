@@ -17,6 +17,7 @@ export type AccessTokenData = {
 export type AuthContext = {
   user: User | null
   token: string | null
+  refreshToken: string | null
   decodedToken: () => AccessTokenData | null
   login: (username: string, password: string) => void
   logout: () => void
