@@ -1,61 +1,59 @@
-import { RouterProvider, createBrowserRouter  } from "react-router-dom"
-import LayoutBasic from "./layouts/LayoutBasic"
-import PageHome from "./pages/PageHome"
-import PageNotFound from "./pages/PageNotFound"
-import PageLogin from "./pages/PageLogin"
-import PageRegister from "./pages/PageRegister"
-import PageTicketNew from "./pages/PageTicketNew"
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import LayoutBasic from './layouts/LayoutBasic'
+import PageHome from './pages/PageHome'
+import PageNotFound from './pages/PageNotFound'
+import PageLogin from './pages/PageLogin'
+import PageRegister from './pages/PageRegister'
+import PageTicketNew from './pages/PageTicketNew'
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <LayoutBasic />,
+  {
+    path: '/',
+    element: <LayoutBasic />,
+    children: [
+      {
+        path: '',
+        element: <PageHome />,
+      },
+    ],
+  },
+  {
+    path: '/login',
+    element: <PageLogin />,
+  },
+  {
+    path: '/register',
+    element: <PageRegister />,
+  },
+  {
+    path: '/queues',
+    element: <LayoutBasic />,
+    children: [
+      {
+        path: ':queueId',
         children: [
-            {
-                path: '',
-                element: <PageHome />
-            }
-        ]
-    },
-    {
-        path: "/login",
-        element: <PageLogin />
-    },
-    {
-        path: "/register",
-        element: <PageRegister />
-    },
-    {
-        path: "/queues",
-        element: <LayoutBasic />,
-        children: [
-            {
-                path: ':queueId',
-                children: [
-                    {
-                        path: 'ticket-new',
-                        element: <PageTicketNew />
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        path: "*",
-        element: <LayoutBasic />,
-        children: [
-            {
-                path: '*',
-                element: <PageNotFound />
-            }
-        ]
-    }
+          {
+            path: 'ticket-new',
+            element: <PageTicketNew />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: '*',
+    element: <LayoutBasic />,
+    children: [
+      {
+        path: '*',
+        element: <PageNotFound />,
+      },
+    ],
+  },
 ])
 
 const TheRouter = () => {
-    return (
-        <RouterProvider router={router}></RouterProvider>
-    )
+  return <RouterProvider router={router}></RouterProvider>
 }
 
 export default TheRouter

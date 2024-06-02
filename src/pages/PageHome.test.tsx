@@ -34,7 +34,9 @@ describe('PageHome Component', () => {
 
     render(<PageHome />)
 
-    expect(screen.getByText(`An error has occurred: ${errorMessage}`)).toBeInTheDocument()
+    expect(
+      screen.getByText(`An error has occurred: ${errorMessage}`)
+    ).toBeInTheDocument()
   })
 
   it('should display data state', () => {
@@ -47,7 +49,9 @@ describe('PageHome Component', () => {
 
     render(<PageHome />)
 
-    expect(screen.getByText(`Hello from Page Home ${JSON.stringify(mockData)}`)).toBeInTheDocument()
+    expect(
+      screen.getByText(`Hello from Page Home ${JSON.stringify(mockData)}`)
+    ).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /button/i })).toBeInTheDocument()
   })
 })
