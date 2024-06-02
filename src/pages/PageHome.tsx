@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { useAuth } from '../hooks/useAuth'
 
 const PageHome = () => {
   const url = `${import.meta.env.VITE_HOST_API}`
@@ -7,6 +8,8 @@ const PageHome = () => {
     queryKey: ['testData'],
     queryFn: () => axios.get(url).then((res) => res.data),
   })
+
+  const { logout } = useAuth()
 
   if (isPending) return 'Loading...'
 
@@ -16,6 +19,9 @@ const PageHome = () => {
     <div className="grid gap-4">
       Hello from Page Home {JSON.stringify(data)}
       <button className="btn">Button</button>
+      <button className="btn" onClick={logout}>
+        Logout
+      </button>
     </div>
   )
 }

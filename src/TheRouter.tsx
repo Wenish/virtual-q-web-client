@@ -5,11 +5,16 @@ import PageNotFound from './pages/PageNotFound'
 import PageLogin from './pages/PageLogin'
 import PageRegister from './pages/PageRegister'
 import PageTicketNew from './pages/PageTicketNew'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LayoutBasic />,
+    element: (
+      <ProtectedRoute>
+        <LayoutBasic />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: '',
@@ -27,7 +32,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/queues',
-    element: <LayoutBasic />,
+    element: (
+      <ProtectedRoute>
+        <LayoutBasic />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: ':queueId',
