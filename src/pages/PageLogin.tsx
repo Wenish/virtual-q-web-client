@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 const PageLogin = () => {
   return (
     <div className="grid gap-4">
-      <h1 className="text-2xl md:text-4xl font-bold text-center">Login</h1>
-      <div className="grid gap-2 md:gap-4 w-full max-w-xl mx-auto">
+      <h1 className="text-center text-2xl font-bold md:text-4xl">Login</h1>
+      <div className="mx-auto grid w-full max-w-xl gap-2 md:gap-4">
         <label className="form-control w-full">
           <div className="label">
             <span className="label-text">Username</span>

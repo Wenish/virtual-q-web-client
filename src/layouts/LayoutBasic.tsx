@@ -4,10 +4,10 @@ const LayoutBasic = () => {
   return (
     <div className="grid min-h-screen grid-cols-[1fr] grid-rows-[65px_1fr_auto]">
       <header>Header TBD</header>
-      <main className="p-4 max-w-screen-xl w-full mx-auto">
+      <main className="mx-auto w-full max-w-screen-xl p-4">
         <Outlet />
       </main>
-      <footer className="grid text-center py-24">
+      <footer className="grid py-24 text-center">
         <p className="text-sm">© 2024 Jonas Voland</p>
       </footer>
     </div>

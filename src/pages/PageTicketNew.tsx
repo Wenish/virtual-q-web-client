@@ -1,15 +1,15 @@
 const PageTicketNew = () => {
   return (
     <div className="grid gap-4">
-      <h1 className="text-2xl md:text-4xl font-bold text-center">
+      <h1 className="text-center text-2xl font-bold md:text-4xl">
         Get a Ticket
       </h1>
-      <p className="text-2xl text-center">Welcome to the digital queue.</p>
-      <p className="text-2xl text-center">
+      <p className="text-center text-2xl">Welcome to the digital queue.</p>
+      <p className="text-center text-2xl">
         Get a ticket for "Hotdog Stand" now.
       </p>
       <div className="grid justify-center">
-        <button className="btn  btn-lg btn-primary">
+        <button className="btn btn-primary btn-lg">
           Press here to get ticket
         </button>
       </div>
