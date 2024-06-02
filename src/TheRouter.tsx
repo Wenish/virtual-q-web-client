@@ -6,6 +6,7 @@ import PageLogin from './pages/PageLogin'
 import PageRegister from './pages/PageRegister'
 import PageTicketNew from './pages/PageTicketNew'
 import ProtectedRoute from './components/ProtectedRoute'
+import PageMeQueues from './pages/PageMeQueues'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,20 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <PageRegister />,
+  },
+  {
+    path: '/me/queues',
+    element: (
+      <ProtectedRoute>
+        <LayoutBasic />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: '',
+        element: <PageMeQueues />,
+      },
+    ],
   },
   {
     path: '/queues',

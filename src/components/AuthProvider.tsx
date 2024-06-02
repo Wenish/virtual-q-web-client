@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import React, { ReactNode, useEffect, useState } from 'react'
-import { AuthContext, User } from '../contexts/AuthContext'
+import { AccessTokenData, AuthContext, User } from '../contexts/AuthContext'
 
 const localStorageUserKey = 'user'
 const localStorageTokenKey = 'token'
@@ -16,6 +16,14 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(() => {
     return localStorage.getItem(localStorageTokenKey)
   })
+
+  const parseJwt = (token: string): AccessTokenData | null => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]))
+    } catch (e) {
+      return null
+    }
+  }
 
   const login = async (username: string, password: string) => {
     const response = await axios.post<
@@ -44,6 +52,21 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     localStorage.removeItem(localStorageTokenKey)
   }
 
+  const decodedToken = () => {
+    if (!token) return null
+    return parseJwt(token)
+  }
+
+  const isTokenExpired = () => {
+    const tokenData = decodedToken()
+    if (!tokenData) return true
+    return tokenData.exp * 1000 < Date.now()
+  }
+
+  const isLoggedIn = () => {
+    return !!user && !!token && !isTokenExpired()
+  }
+
   useEffect(() => {
     const userJson = localStorage.getItem(localStorageUserKey)
     if (userJson) {
@@ -57,7 +80,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, token, decodedToken, login, logout, isLoggedIn }}
+    >
       {children}
     </AuthContext.Provider>
   )

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useAuth } from '../hooks/useAuth'
+import { Link } from 'react-router-dom'
 
 const PageHome = () => {
   const url = `${import.meta.env.VITE_HOST_API}`
@@ -18,7 +19,9 @@ const PageHome = () => {
   return (
     <div className="grid gap-4">
       Hello from Page Home {JSON.stringify(data)}
-      <button className="btn">Button</button>
+      <Link to="/me/queues" className="btn btn-primary">
+        My Queues
+      </Link>
       <button className="btn" onClick={logout}>
         Logout
       </button>
