@@ -2,6 +2,9 @@ import { RouterProvider, createBrowserRouter  } from "react-router-dom"
 import LayoutBasic from "./layouts/LayoutBasic"
 import PageHome from "./pages/PageHome"
 import PageNotFound from "./pages/PageNotFound"
+import PageLogin from "./pages/PageLogin"
+import PageRegister from "./pages/PageRegister"
+import PageTicketNew from "./pages/PageTicketNew"
 
 const router = createBrowserRouter([
     {
@@ -11,6 +14,29 @@ const router = createBrowserRouter([
             {
                 path: '',
                 element: <PageHome />
+            }
+        ]
+    },
+    {
+        path: "/login",
+        element: <PageLogin />
+    },
+    {
+        path: "/register",
+        element: <PageRegister />
+    },
+    {
+        path: "/queues",
+        element: <LayoutBasic />,
+        children: [
+            {
+                path: ':queueId',
+                children: [
+                    {
+                        path: 'ticket-new',
+                        element: <PageTicketNew />
+                    }
+                ]
             }
         ]
     },
