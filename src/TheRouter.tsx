@@ -4,9 +4,10 @@ import PageHome from './pages/PageHome'
 import PageNotFound from './pages/PageNotFound'
 import PageLogin from './pages/PageLogin'
 import PageRegister from './pages/PageRegister'
-import PageTicketNew from './pages/PageTicketNew'
+import PageQueueTicketNew from './pages/PageQueueTicketNew'
 import ProtectedRoute from './components/ProtectedRoute'
 import PageMeQueues from './pages/PageMeQueues'
+import PageQueueQrCode from './pages/PageQueueQrCode'
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'ticket-new',
-            element: <PageTicketNew />,
+            element: <PageQueueTicketNew />,
+          },
+          {
+            path: 'qr-code',
+            element: <PageQueueQrCode />,
           },
         ],
       },

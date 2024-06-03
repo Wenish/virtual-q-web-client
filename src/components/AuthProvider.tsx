@@ -107,7 +107,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const intervalId = setInterval(checkTokenExpiry, 60000)
 
     return () => clearInterval(intervalId)
-  }, [token])
+  }, [token, isTokenExpired, refreshAccessToken])
 
   return (
     <AuthContext.Provider

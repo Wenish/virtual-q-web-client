@@ -1,4 +1,4 @@
-const PageTicketNew = () => {
+const PageQueueTicketNew = () => {
   return (
     <div className="grid gap-4">
       <h1 className="text-center text-2xl font-bold md:text-4xl">
@@ -17,4 +17,4 @@ const PageTicketNew = () => {
   )
 }
 
-export default PageTicketNew
+export default PageQueueTicketNew
