@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import { AccessTokenData, AuthContext, User } from '../contexts/AuthContext'
 
 const localStorageUserKey = 'user'
@@ -63,22 +63,22 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     localStorage.removeItem(localStorageRefreshTokenKey)
   }
 
-  const decodedToken = () => {
+  const decodedToken = useCallback(() => {
     if (!token) return null
     return parseJwt(token)
-  }
+  }, [token])
 
-  const isTokenExpired = () => {
+  const isTokenExpired = useCallback(() => {
     const tokenData = decodedToken()
     if (!tokenData) return true
     return tokenData.exp * 1000 < Date.now()
-  }
+  }, [decodedToken])
 
   const isLoggedIn = () => {
     return !!user && !!token && !isTokenExpired()
   }
 
-  const refreshAccessToken = async () => {
+  const refreshAccessToken = useCallback(async () => {
     try {
       if (!refreshToken) throw 'No refresh token'
 
@@ -95,7 +95,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       console.error('Failed to refresh access token:', error)
       logout()
     }
-  }
+  }, [refreshToken])
 
   useEffect(() => {
     const checkTokenExpiry = () => {
