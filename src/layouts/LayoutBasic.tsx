@@ -1,9 +1,12 @@
 import { Outlet } from 'react-router-dom'
+import TheNavbar from '../components/TheNavbar'
 
 const LayoutBasic = () => {
   return (
     <div className="grid min-h-screen grid-cols-[1fr] grid-rows-[65px_1fr_auto]">
-      <header>Header TBD</header>
+      <header>
+        <TheNavbar />
+      </header>
       <main className="mx-auto w-full max-w-screen-xl p-4">
         <Outlet />
       </main>
