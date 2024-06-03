@@ -25,7 +25,9 @@ const PageMeQueues = () => {
 
   return (
     <div className="grid gap-4">
-      Hello from Page Me Queues {JSON.stringify(data)}
+      <div className="break-all">
+        Hello from Page Me Queues {JSON.stringify(data)}
+      </div>
       {data.results.map((queue) => (
         <div key={queue.id}>
           {queue.id} - {queue.name}

@@ -18,7 +18,9 @@ const PageHome = () => {
 
   return (
     <div className="grid gap-4">
-      Hello from Page Home {JSON.stringify(data)}
+      <div className="break-all">
+        Hello from Page Home {JSON.stringify(data)}
+      </div>
       <Link to="/me/queues" className="btn btn-primary">
         My Queues
       </Link>
