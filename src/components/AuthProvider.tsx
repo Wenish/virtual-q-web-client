@@ -74,9 +74,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     return tokenData.exp * 1000 < Date.now()
   }, [decodedToken])
 
-  const isLoggedIn = () => {
+  const isLoggedIn = useCallback(() => {
     return !!user && !!token && !isTokenExpired()
-  }
+  }, [user, token, isTokenExpired])
 
   const refreshAccessToken = useCallback(async () => {
     try {
@@ -99,15 +99,15 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const checkTokenExpiry = () => {
-      if (isTokenExpired()) {
+      if (isLoggedIn() && isTokenExpired()) {
         refreshAccessToken()
       }
     }
 
-    const intervalId = setInterval(checkTokenExpiry, 60000)
+    const intervalId = setInterval(checkTokenExpiry, 1000)
 
     return () => clearInterval(intervalId)
-  }, [token, isTokenExpired, refreshAccessToken])
+  }, [token, isTokenExpired, refreshAccessToken, isLoggedIn])
 
   return (
     <AuthContext.Provider
