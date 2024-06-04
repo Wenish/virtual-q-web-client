@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { Mock, describe, expect, it, vi } from 'vitest'
 import { useQuery } from '@tanstack/react-query'
 import PageHome from './PageHome'
-import { renderWithRouter } from '../../tests/test-utils'
+import { renderWithRouter } from '../../tests/testRenderWithRouter'
 
 // Mock useQuery from @tanstack/react-query
 vi.mock('@tanstack/react-query', () => ({
@@ -20,7 +20,7 @@ describe('PageHome Component', () => {
       data: null,
     })
 
-    render(<PageHome />)
+    renderWithRouter(<PageHome />, { route: '/', path: '/' })
 
     expect(screen.getByText('Loading...')).toBeInTheDocument()
   })
@@ -33,7 +33,7 @@ describe('PageHome Component', () => {
       data: null,
     })
 
-    render(<PageHome />)
+    renderWithRouter(<PageHome />, { route: '/', path: '/' })
 
     expect(
       screen.getByText(`An error has occurred: ${errorMessage}`)
