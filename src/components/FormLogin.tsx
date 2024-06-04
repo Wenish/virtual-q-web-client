@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 const FormLogin: React.FC<{
-  onSubmit?: SubmitHandler<LoginFormData>
+  onSubmit?: SubmitHandler<FormLoginData>
   disabled?: boolean
   isLoading?: boolean
 }> = ({ onSubmit, disabled, isLoading }) => {
@@ -9,14 +9,14 @@ const FormLogin: React.FC<{
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
+  } = useForm<FormLoginData>({
     defaultValues: {
       username: '',
       password: '',
     },
   })
 
-  const onFormSubmit: SubmitHandler<LoginFormData> = (data) => {
+  const onFormSubmit: SubmitHandler<FormLoginData> = (data) => {
     if (onSubmit) {
       return onSubmit(data)
     }
@@ -32,14 +32,14 @@ const FormLogin: React.FC<{
           <span className="label-text">Username</span>
         </div>
         <input
-          {...register('username', { required: true })}
+          {...register('username', { required: 'Please enter your username' })}
           disabled={disabled}
           type="text"
           className="input input-bordered input-primary w-full"
         />
         <div className="label">
           <span className="label-text-alt text-error">
-            {errors.username && 'Please enter your username'}
+            {errors.username && errors.username.message}
           </span>
         </div>
       </label>
@@ -48,14 +48,14 @@ const FormLogin: React.FC<{
           <span className="label-text">Password</span>
         </div>
         <input
-          {...register('password', { required: true })}
+          {...register('password', { required: 'Please enter your password' })}
           disabled={disabled}
           type="password"
           className="input input-bordered input-primary w-full"
         />
         <div className="label">
           <span className="label-text-alt text-error">
-            {errors.password && 'Please enter your password'}
+            {errors.password && errors.password.message}
           </span>
         </div>
       </label>
@@ -71,7 +71,7 @@ const FormLogin: React.FC<{
 
 export default FormLogin
 
-export type LoginFormData = {
+export type FormLoginData = {
   username: string
   password: string
 }

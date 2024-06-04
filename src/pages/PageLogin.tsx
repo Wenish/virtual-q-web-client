@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import FormLogin, { LoginFormData } from '../components/FormLogin'
+import FormLogin, { FormLoginData } from '../components/FormLogin'
 import { SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 
@@ -11,7 +11,7 @@ const PageLogin: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const onLoginFormSubmit: SubmitHandler<LoginFormData> = async ({
+  const onLoginFormSubmit: SubmitHandler<FormLoginData> = async ({
     username,
     password,
   }) => {
