@@ -36,7 +36,13 @@ const router = createBrowserRouter([
   },
   {
     path: '/register',
-    element: <PageRegister />,
+    element: <LayoutBasic />,
+    children: [
+      {
+        path: '',
+        element: <PageRegister />
+      }
+    ]
   },
   {
     path: '/me/queues',
