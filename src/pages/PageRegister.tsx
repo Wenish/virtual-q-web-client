@@ -42,7 +42,7 @@ const PageRegister = () => {
         isLoading={isSubmittingRegisterForm}
       />
 
-      {registerError.length && (
+      {!!registerError.length && (
         <div className="mx-auto grid">
           <div role="alert" className="alert alert-error">
             <button onClick={() => setRegisterError([])}>
