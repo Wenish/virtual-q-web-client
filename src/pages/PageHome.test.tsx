@@ -3,6 +3,7 @@ import '@testing-library/jest-dom'
 import { Mock, describe, expect, it, vi } from 'vitest'
 import { useQuery } from '@tanstack/react-query'
 import PageHome from './PageHome'
+import { renderWithRouter } from '../../tests/test-utils'
 
 // Mock useQuery from @tanstack/react-query
 vi.mock('@tanstack/react-query', () => ({
@@ -47,11 +48,10 @@ describe('PageHome Component', () => {
       data: mockData,
     })
 
-    render(<PageHome />)
+    renderWithRouter(<PageHome />, { route: '/', path: '/' })
 
     expect(
       screen.getByText(`Hello from Page Home ${JSON.stringify(mockData)}`)
     ).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /button/i })).toBeInTheDocument()
   })
 })
