@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import FormRegister, { FormRegisterData } from '../components/FormRegister'
 import { useState } from 'react'
 import { useRegister } from '../hooks/useRegister'
@@ -10,6 +10,8 @@ const PageRegister = () => {
     useState(false)
   const [registerError, setRegisterError] = useState<string[]>([])
   const { register } = useRegister()
+  const [searchParams] = useSearchParams()
+  const redirect = searchParams.get('redirect')
 
   const navigate = useNavigate()
 
@@ -19,7 +21,7 @@ const PageRegister = () => {
     try {
       setIsSubmittingRegisterForm(true)
       await register(formData)
-      navigate('/login')
+      navigate(`/login?redirect=${encodeURIComponent(redirect || '')}`)
     } catch (error) {
       console.error('Register failed', error)
       if (axios.isAxiosError(error)) {
@@ -72,7 +74,10 @@ const PageRegister = () => {
       )}
 
       <div className="grid justify-center">
-        <Link to="/login" className="link link-secondary">
+        <Link
+          to={`/login?redirect=${encodeURIComponent(redirect || '')}`}
+          className="link link-secondary"
+        >
           I already have an account
         </Link>
       </div>

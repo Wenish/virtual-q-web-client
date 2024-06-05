@@ -1,4 +1,9 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import FormLogin, { FormLoginData } from '../components/FormLogin'
 import { SubmitHandler } from 'react-hook-form'
@@ -10,6 +15,8 @@ const PageLogin: React.FC = () => {
   const { login } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const [searchParams] = useSearchParams()
+  const redirect = searchParams.get('redirect')
 
   const onLoginFormSubmit: SubmitHandler<FormLoginData> = async ({
     username,
@@ -66,7 +73,10 @@ const PageLogin: React.FC = () => {
               </div>
             )}
             <div className="grid justify-center">
-              <Link to="/register" className="link link-secondary">
+              <Link
+                to={`/register?redirect=${encodeURIComponent(redirect || '')}`}
+                className="link link-secondary"
+              >
                 I don't have an account
               </Link>
             </div>
