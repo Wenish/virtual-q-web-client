@@ -36,10 +36,15 @@ const QueuesListItem: React.FC<{ item: { name: string; id: number } }> = ({
               <Link to={`/queues/${item.id}`}>Open</Link>
             </li>
             <li>
-              <div>Delete tickets</div>
+              <Link to={`/queues/${item.id}/qr-code`}>QR-Code site</Link>
             </li>
             <li>
-              <Link to={`/queues/${item.id}/qr-code`}>QR-Code Site</Link>
+              <Link to={`/queues/${item.id}/tickets-call`}>
+                Tickets in the queue site
+              </Link>
+            </li>
+            <li>
+              <div>Delete tickets</div>
             </li>
             <li>
               <Link to={`/queues/${item.id}/edit`}>Edit queue</Link>
