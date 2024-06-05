@@ -44,9 +44,6 @@ const TheNavbar = () => {
               </div>
               <hr className="my-2" />
               <li>
-                <Link to="/me/tickets">My Tickets</Link>
-              </li>
-              <li>
                 <Link to="/me/queues">My Queues</Link>
               </li>
               <li>
