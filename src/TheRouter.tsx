@@ -12,6 +12,7 @@ import PageQueueNew from './pages/PageQueueNew'
 import PageQueueNewSuccess from './pages/PageQueueNewSuccess'
 import PageQueueEdit from './pages/PageQueueEdit'
 import PageQueueEditSuccess from './pages/PageQueueEditSuccess'
+import PageQueue from './pages/PageQueue'
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: ':queueId',
         children: [
+          {
+            path: '',
+            element: <PageQueue />,
+          },
           {
             path: 'edit',
             element: <PageQueueEdit />,
