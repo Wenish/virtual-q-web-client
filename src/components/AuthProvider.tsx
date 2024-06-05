@@ -98,16 +98,16 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }, [refreshToken])
 
   useEffect(() => {
-    const checkTokenExpiry = () => {
-      if (isLoggedIn() && isTokenExpired()) {
+    const refreshToken = () => {
+      if (isLoggedIn()) {
         refreshAccessToken()
       }
     }
 
-    const intervalId = setInterval(checkTokenExpiry, 1000)
+    const intervalId = setInterval(refreshToken, 3_600_000) // 1 hour
 
     return () => clearInterval(intervalId)
-  }, [token, isTokenExpired, refreshAccessToken, isLoggedIn])
+  }, [token, refreshAccessToken, isLoggedIn])
 
   return (
     <AuthContext.Provider
