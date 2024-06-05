@@ -4,7 +4,7 @@ const QueuesListItemDelete: React.FC<{
   item: { name: string; id: number }
   onItemDelete?: (id: number) => void
 }> = ({ item, onItemDelete }) => {
-  const modalId = `queues-list-item-modal-delete-queue-${item.id}`
+  const modalId = `queues-list-item-delete-modal-${item.id}`
 
   const getModalElement: (id: string) => HTMLDialogElement | null = (
     id: string

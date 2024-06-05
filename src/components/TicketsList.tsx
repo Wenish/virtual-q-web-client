@@ -4,7 +4,8 @@ import TicketsListItem from './TicketsListItem'
 const TicketsList: React.FC<{
   list: { id: number; number: number; status: number }[]
   infoTextEmptyList: string
-}> = ({ list, infoTextEmptyList }) => {
+  onStatusChange?: (id: number, newStatus: number) => void
+}> = ({ list, infoTextEmptyList, onStatusChange }) => {
   if (!list.length)
     return (
       <div role="alert" className="alert alert-info">
@@ -27,7 +28,11 @@ const TicketsList: React.FC<{
   return (
     <div className="grid gap-2">
       {list.map((item) => (
-        <TicketsListItem key={item.id} item={item} />
+        <TicketsListItem
+          key={item.id}
+          item={item}
+          onStatusChange={onStatusChange}
+        />
       ))}
     </div>
   )

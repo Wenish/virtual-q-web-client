@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import TicketsListItemChangeStatus from './TicketsListItemChangeStatus'
 
 const TicketsListItem: React.FC<{
   item: { id: number; number: number; status: number }
-}> = ({ item }) => {
+  onStatusChange?: (id: number, newStatus: number) => void
+}> = ({ item, onStatusChange }) => {
   return (
     <div className="grid grid-cols-[1fr_auto] rounded-md bg-base-200 hover:bg-base-300">
       <Link
@@ -36,7 +38,10 @@ const TicketsListItem: React.FC<{
               <Link to={`/tickets/${item.id}`}>Open</Link>
             </li>
             <li>
-              <div>Change ticket status</div>
+              <TicketsListItemChangeStatus
+                item={item}
+                onStatusChange={onStatusChange}
+              />
             </li>
           </ul>
         </div>
