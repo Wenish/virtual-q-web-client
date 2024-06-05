@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import PageMeQueues from './pages/PageMeQueues'
 import PageQueueQrCode from './pages/PageQueueQrCode'
 import PageQueueNew from './pages/PageQueueNew'
+import PageQueueNewSuccess from './pages/PageQueueNewSuccess'
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <PageQueueNew />,
+      },
+      {
+        path: 'success',
+        element: <PageQueueNewSuccess />,
       },
     ],
   },
