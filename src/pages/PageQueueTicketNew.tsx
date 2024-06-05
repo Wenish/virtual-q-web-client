@@ -80,7 +80,9 @@ const PageQueueTicketNew = () => {
 
     if (!userHasAlreadyTicket) return
 
-    navigate(`/tickets/${queryGetUserQueueTickets.data.results[0].id}`, { replace: true })
+    navigate(`/tickets/${queryGetUserQueueTickets.data.results[0].id}`, {
+      replace: true,
+    })
   }, [
     queryGetUserQueueTickets.isSuccess,
     queryGetUserQueueTickets.data?.results,
