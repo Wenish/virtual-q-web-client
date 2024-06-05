@@ -8,6 +8,7 @@ import PageQueueTicketNew from './pages/PageQueueTicketNew'
 import ProtectedRoute from './components/ProtectedRoute'
 import PageMeQueues from './pages/PageMeQueues'
 import PageQueueQrCode from './pages/PageQueueQrCode'
+import PageQueueNew from './pages/PageQueueNew'
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,20 @@ const router = createBrowserRouter([
             element: <PageQueueQrCode />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: '/queues-new',
+    element: (
+      <ProtectedRoute>
+        <LayoutBasic />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: '',
+        element: <PageQueueNew />,
       },
     ],
   },
