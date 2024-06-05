@@ -84,4 +84,30 @@ describe('PageMeQueues Component', () => {
     const elements2 = screen.queryAllByText(mockData.results[1].name)
     expect(elements2.length).eq(2)
   })
+
+  it('should have link /queues-new', () => {
+    const mockData = {
+      count: 1,
+      next: null,
+      previous: null,
+      results: [],
+    }
+    mockUseQuery.mockReturnValue({
+      isPending: false,
+      error: null,
+      data: mockData,
+    })
+
+    renderWithRouter(<PageMeQueues />, {
+      route: '/me/queues',
+      path: '/me/queues',
+    })
+
+    const link = screen.getByRole('link', {
+      name: 'Add new queue',
+    })
+
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute('href', '/queues-new')
+  })
 })

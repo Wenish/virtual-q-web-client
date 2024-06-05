@@ -9,7 +9,7 @@ describe('PageHome Component', () => {
     renderWithRouter(<PageHome />, { route: '/', path: '/' })
   })
 
-  it('should display link /me/queues', () => {
+  it('should have link /me/queues', () => {
     renderWithRouter(<PageHome />, { route: '/', path: '/' })
 
     const link = screen.getByRole('link', {
