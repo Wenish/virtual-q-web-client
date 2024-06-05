@@ -6,7 +6,7 @@ import { useAuth } from '../hooks/useAuth'
 
 const PageTicket = () => {
   const { ticketId } = useParams()
-  const { token } = useAuth()
+  const { token, decodedToken } = useAuth()
 
   const endpointTicket = `${import.meta.env.VITE_HOST_API}/tickets/${ticketId}/`
   const queryGetTicket = useQuery({
@@ -47,9 +47,14 @@ const PageTicket = () => {
       queryGetQueue.error?.message
     )
 
+  const headingText =
+    decodedToken()?.user_id == queryGetTicket.data.user
+      ? 'Your Ticket'
+      : 'The Ticket'
+
   return (
     <div className="mx-auto grid max-w-4xl gap-4 text-center">
-      <h1 className="text-4xl font-bold">Your Ticket</h1>
+      <h1 className="text-4xl font-bold">{headingText}</h1>
       <div className="grid justify-center">
         <QueueTicket
           queueName={queryGetQueue.data?.name}

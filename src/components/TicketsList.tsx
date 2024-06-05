@@ -1,7 +1,8 @@
 import React from 'react'
+import TicketsListItem from './TicketsListItem'
 
 const TicketsList: React.FC<{
-  list: { id: number }[]
+  list: { id: number; number: number; status: number }[]
   infoTextEmptyList: string
 }> = ({ list, infoTextEmptyList }) => {
   if (!list.length)
@@ -26,7 +27,7 @@ const TicketsList: React.FC<{
   return (
     <div className="grid gap-2">
       {list.map((item) => (
-        <div key={item.id}>{item.id}</div>
+        <TicketsListItem key={item.id} item={item} />
       ))}
     </div>
   )

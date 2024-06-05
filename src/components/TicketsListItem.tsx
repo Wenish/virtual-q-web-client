@@ -1,18 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import QueuesListItemDelete from './QueuesListItemDelete'
 
-const QueuesListItem: React.FC<{
-  item: { name: string; id: number }
-  onItemDelete?: (id: number) => void
-}> = ({ item, onItemDelete }) => {
+const TicketsListItem: React.FC<{
+  item: { id: number; number: number; status: number }
+}> = ({ item }) => {
   return (
     <div className="grid grid-cols-[1fr_auto] rounded-md bg-base-200 hover:bg-base-300">
       <Link
-        to={`/queues/${item.id}`}
+        to={`/tickets/${item.id}`}
         className="flex items-center break-all pl-2 font-semibold text-base-content md:pl-3"
       >
-        {item.name}
+        Ticket {item.number}
       </Link>
       <div>
         <div className="dropdown dropdown-end">
@@ -35,24 +33,10 @@ const QueuesListItem: React.FC<{
             className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
           >
             <li>
-              <Link to={`/queues/${item.id}`}>Open</Link>
+              <Link to={`/tickets/${item.id}`}>Open</Link>
             </li>
             <li>
-              <Link to={`/queues/${item.id}/qr-code`}>QR-Code site</Link>
-            </li>
-            <li>
-              <Link to={`/queues/${item.id}/tickets-call`}>
-                Tickets in the queue site
-              </Link>
-            </li>
-            <li>
-              <div>Delete tickets</div>
-            </li>
-            <li>
-              <Link to={`/queues/${item.id}/edit`}>Edit queue</Link>
-            </li>
-            <li>
-              <QueuesListItemDelete item={item} onItemDelete={onItemDelete} />
+              <div>Change ticket status</div>
             </li>
           </ul>
         </div>
@@ -61,4 +45,4 @@ const QueuesListItem: React.FC<{
   )
 }
 
-export default QueuesListItem
+export default TicketsListItem
