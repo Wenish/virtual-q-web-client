@@ -60,7 +60,7 @@ const PageQueue = () => {
 
   return (
     <div className="mx-auto grid max-w-4xl gap-4">
-      <h1 className="text-2xl font-bold md:text-4xl">
+      <h1 className="break-all text-2xl font-bold md:text-4xl">
         {queryGetQueue.data.name}
       </h1>
       <div className="grid gap-2">

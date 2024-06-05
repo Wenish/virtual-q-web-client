@@ -42,7 +42,7 @@ const QueuesListItem: React.FC<{
             </li>
             <li>
               <Link to={`/queues/${item.id}/tickets-call`}>
-                Tickets in the queue site
+                Tickets call site
               </Link>
             </li>
             <li>

@@ -14,6 +14,7 @@ import PageQueueEdit from './pages/PageQueueEdit'
 import PageQueueEditSuccess from './pages/PageQueueEditSuccess'
 import PageQueue from './pages/PageQueue'
 import PageTicket from './pages/PageTicket'
+import PageQueueTicketsCall from './pages/PageQueueTicketsCall'
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
           {
             path: 'qr-code',
             element: <PageQueueQrCode />,
+          },
+          {
+            path: 'tickets-call',
+            element: <PageQueueTicketsCall />,
           },
         ],
       },

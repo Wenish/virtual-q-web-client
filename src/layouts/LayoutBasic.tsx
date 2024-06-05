@@ -10,7 +10,7 @@ const LayoutBasic = () => {
       <main className="mx-auto w-full max-w-screen-xl p-4">
         <Outlet />
       </main>
-      <footer className="grid py-24 text-center">
+      <footer className="grid py-6 text-center">
         <p className="text-sm">© 2024 Jonas Voland</p>
       </footer>
     </div>
