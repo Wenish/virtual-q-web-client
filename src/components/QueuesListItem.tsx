@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import QueuesListItemDelete from './QueuesListItemDelete'
 
-const QueuesListItem: React.FC<{ item: { name: string; id: number } }> = ({
-  item,
-}) => {
+const QueuesListItem: React.FC<{
+  item: { name: string; id: number }
+  onItemDelete?: (id: number) => void
+}> = ({ item, onItemDelete }) => {
   return (
     <div className="grid grid-cols-[1fr_auto] rounded-md bg-base-200 hover:bg-base-300">
       <Link
@@ -50,7 +52,7 @@ const QueuesListItem: React.FC<{ item: { name: string; id: number } }> = ({
               <Link to={`/queues/${item.id}/edit`}>Edit queue</Link>
             </li>
             <li>
-              <div>Delete queue</div>
+              <QueuesListItemDelete item={item} onItemDelete={onItemDelete} />
             </li>
           </ul>
         </div>

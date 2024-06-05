@@ -4,7 +4,8 @@ import QueuesListItem from './QueuesListItem'
 const QueuesList: React.FC<{
   list: { name: string; id: number }[]
   infoTextEmptyList: string
-}> = ({ list, infoTextEmptyList }) => {
+  onItemDelete?: (id: number) => void
+}> = ({ list, infoTextEmptyList, onItemDelete }) => {
   if (!list.length)
     return (
       <div role="alert" className="alert alert-info">
@@ -27,7 +28,7 @@ const QueuesList: React.FC<{
   return (
     <div className="grid gap-2">
       {list.map((item) => (
-        <QueuesListItem item={item} key={item.id} />
+        <QueuesListItem item={item} key={item.id} onItemDelete={onItemDelete} />
       ))}
     </div>
   )
