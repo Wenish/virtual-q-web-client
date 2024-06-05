@@ -6,9 +6,9 @@ const QueueTicket: React.FC<{
   const getStatusText = (status: number) => {
     switch (status) {
       case 1:
-        return 'new'
+        return 'wait'
       case 2:
-        return 'in progress'
+        return 'ready'
       case 3:
         return 'done'
       default:
