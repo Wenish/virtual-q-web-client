@@ -10,6 +10,8 @@ import PageMeQueues from './pages/PageMeQueues'
 import PageQueueQrCode from './pages/PageQueueQrCode'
 import PageQueueNew from './pages/PageQueueNew'
 import PageQueueNewSuccess from './pages/PageQueueNewSuccess'
+import PageQueueEdit from './pages/PageQueueEdit'
+import PageQueueEditSuccess from './pages/PageQueueEditSuccess'
 
 const router = createBrowserRouter([
   {
@@ -71,6 +73,14 @@ const router = createBrowserRouter([
       {
         path: ':queueId',
         children: [
+          {
+            path: 'edit',
+            element: <PageQueueEdit />,
+          },
+          {
+            path: 'edit/success',
+            element: <PageQueueEditSuccess />,
+          },
           {
             path: 'ticket-new',
             element: <PageQueueTicketNew />,

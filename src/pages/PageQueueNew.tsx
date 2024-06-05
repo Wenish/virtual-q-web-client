@@ -54,7 +54,11 @@ const PageQueueNew = () => {
 export default PageQueueNew
 
 type QueuePostResponse = {
+  createdAt: string
+  modifiedAt: string
+  id: number
   name: string
+  user: number
 }
 
 type QueuePostBody = {

@@ -8,7 +8,7 @@ const QueuesListItem: React.FC<{ item: { name: string; id: number } }> = ({
     <div className="grid grid-cols-[1fr_auto] rounded-md bg-base-200 hover:bg-base-300">
       <Link
         to={`/queues/${item.id}`}
-        className="flex items-center pl-2 text-base-content md:pl-3"
+        className="flex items-center break-all pl-2 text-base-content md:pl-3"
       >
         {item.name}
       </Link>
