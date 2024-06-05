@@ -25,7 +25,7 @@ const FormLogin: React.FC<{
   return (
     <form
       onSubmit={handleSubmit(onFormSubmit)}
-      className="mx-auto grid w-full max-w-xl gap-2 md:gap-4"
+      className="mx-auto grid w-full max-w-xl"
     >
       <label className="form-control w-full">
         <div className="label">

@@ -65,7 +65,7 @@ const FormRegister: React.FC<{
   return (
     <form
       onSubmit={handleSubmit(onFormSubmit)}
-      className="mx-auto grid w-full max-w-xl gap-2 md:gap-4"
+      className="mx-auto grid w-full max-w-xl"
       autoComplete="off"
     >
       <label className="form-control w-full">

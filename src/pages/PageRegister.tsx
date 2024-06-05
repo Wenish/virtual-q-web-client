@@ -72,7 +72,7 @@ const PageRegister = () => {
       )}
 
       <div className="grid justify-center">
-        <Link to="/login" className="link link-accent">
+        <Link to="/login" className="link link-secondary">
           I already have an account
         </Link>
       </div>
