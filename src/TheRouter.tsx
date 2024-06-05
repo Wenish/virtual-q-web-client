@@ -13,6 +13,7 @@ import PageQueueNewSuccess from './pages/PageQueueNewSuccess'
 import PageQueueEdit from './pages/PageQueueEdit'
 import PageQueueEditSuccess from './pages/PageQueueEditSuccess'
 import PageQueue from './pages/PageQueue'
+import PageTicket from './pages/PageTicket'
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,20 @@ const router = createBrowserRouter([
       {
         path: 'success',
         element: <PageQueueNewSuccess />,
+      },
+    ],
+  },
+  {
+    path: '/tickets/:ticketId',
+    element: (
+      <ProtectedRoute>
+        <LayoutBasic />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: '',
+        element: <PageTicket />,
       },
     ],
   },
