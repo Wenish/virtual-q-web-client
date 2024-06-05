@@ -1,57 +1,22 @@
 import { screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { Mock, describe, expect, it, vi } from 'vitest'
-import { useQuery } from '@tanstack/react-query'
+import { describe, expect, it } from 'vitest'
 import PageHome from './PageHome'
 import { renderWithRouter } from '../../tests/testRenderWithRouter'
 
-// Mock useQuery from @tanstack/react-query
-vi.mock('@tanstack/react-query', () => ({
-  useQuery: vi.fn(),
-}))
-
-const mockUseQuery = useQuery as Mock
-
 describe('PageHome Component', () => {
-  it('should display loading state', () => {
-    mockUseQuery.mockReturnValue({
-      isPending: true,
-      error: null,
-      data: null,
-    })
-
+  it('should render component', () => {
     renderWithRouter(<PageHome />, { route: '/', path: '/' })
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
   })
 
-  it('should display error state', () => {
-    const errorMessage = 'An error occurred'
-    mockUseQuery.mockReturnValue({
-      isPending: false,
-      error: { message: errorMessage },
-      data: null,
-    })
-
+  it('should display link /me/queues', () => {
     renderWithRouter(<PageHome />, { route: '/', path: '/' })
 
-    expect(
-      screen.getByText(`An error has occurred: ${errorMessage}`)
-    ).toBeInTheDocument()
-  })
-
-  it('should display data state', () => {
-    const mockData = { message: 'Hello, World!' }
-    mockUseQuery.mockReturnValue({
-      isPending: false,
-      error: null,
-      data: mockData,
+    const link = screen.getByRole('link', {
+      name: 'My Queues',
     })
 
-    renderWithRouter(<PageHome />, { route: '/', path: '/' })
-
-    expect(
-      screen.getByText(`Hello from Page Home ${JSON.stringify(mockData)}`)
-    ).toBeInTheDocument()
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute('href', '/me/queues')
   })
 })
