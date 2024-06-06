@@ -24,3 +24,11 @@ test-job:
     - npm run lint
     - npm run format:check
     - npm run test
+  coverage: '/Statements\s*:\s*([^%]+)/' # Adjust the regex to match Vitest's output format for coverage
+  artifacts:
+    when: on_success
+    expire_in: 1 week
+    reports:
+      cobertura: coverage/lcov.info
+    paths:
+      - coverage/
