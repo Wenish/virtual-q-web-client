@@ -33,7 +33,12 @@ const PageQueueQrCode = () => {
         {data.name}
       </h1>
       <div className="grid justify-center">
-        <QRCodeSVG value={urlQrCode} height={'100%'} width={'100%'} />
+        <QRCodeSVG
+          role="qr-code"
+          value={urlQrCode}
+          height={'100%'}
+          width={'100%'}
+        />
       </div>
       <div>
         <p className="text-center text-4xl">
