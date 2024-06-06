@@ -20,6 +20,7 @@ const TicketsListItem: React.FC<{
             tabIndex={0}
             role="button"
             className="btn btn-circle btn-ghost btn-sm m-1"
+            data-testid="dropdown-button"
           >
             <svg
               className="h-5 w-5"
