@@ -3,7 +3,6 @@ import '@testing-library/jest-dom'
 import { describe, expect, it, vi } from 'vitest'
 import TicketsList from './TicketsList'
 
-// Mock TicketsListItem to isolate the testing of TicketsList
 vi.mock('./TicketsListItem', () => ({
   __esModule: true,
   default: ({
@@ -14,7 +13,6 @@ vi.mock('./TicketsListItem', () => ({
     onStatusChange?: (id: number, newStatus: number) => void
   }) => (
     <div data-testid="ticket-item">
-      {/* Mock select element for status change */}
       <select
         data-testid="status-select"
         value={item.status}
@@ -22,7 +20,6 @@ vi.mock('./TicketsListItem', () => ({
           onStatusChange && onStatusChange(item.id, parseInt(e.target.value))
         }
       >
-        {/* Mock options for the sake of the test */}
         <option value="1">Status 1</option>
         <option value="2">Status 2</option>
       </select>

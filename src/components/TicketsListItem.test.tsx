@@ -1,5 +1,3 @@
-// TicketsListItem.test.tsx
-
 import { BrowserRouter } from 'react-router-dom'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -7,7 +5,6 @@ import '@testing-library/jest-dom'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import TicketsListItem from './TicketsListItem'
 
-// Mock the TicketsListItemChangeStatus component
 vi.mock('./TicketsListItemChangeStatus', () => ({
   __esModule: true,
   default: ({
@@ -19,7 +16,7 @@ vi.mock('./TicketsListItemChangeStatus', () => ({
   }) => (
     <button
       data-testid="change-status-button"
-      onClick={() => onStatusChange && onStatusChange(item.id, item.status + 1)} // Simulate status change
+      onClick={() => onStatusChange && onStatusChange(item.id, item.status + 1)}
     >
       Change Status
     </button>

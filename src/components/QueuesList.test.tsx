@@ -3,7 +3,6 @@ import '@testing-library/jest-dom'
 import { describe, expect, it, vi } from 'vitest'
 import QueuesList from './QueuesList'
 
-// Mock QueuesListItem to isolate the testing of QueuesList
 vi.mock('./QueuesListItem', () => ({
   __esModule: true,
   default: ({

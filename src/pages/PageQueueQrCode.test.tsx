@@ -5,7 +5,6 @@ import PageQueueQrCode from './PageQueueQrCode'
 import { Mock, describe, expect, it, vi } from 'vitest'
 import { renderWithRouter } from '../../tests/testRenderWithRouter'
 
-// Mock useQuery from @tanstack/react-query
 vi.mock('@tanstack/react-query', () => ({
   useQuery: vi.fn(),
 }))

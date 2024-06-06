@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 import QueuesListItem from './QueuesListItem'
 
-// Mock QueuesListItemDelete to isolate the testing of QueuesListItem
 vi.mock('./QueuesListItemDelete', () => ({
   __esModule: true,
   default: ({
