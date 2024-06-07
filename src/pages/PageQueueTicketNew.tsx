@@ -100,8 +100,9 @@ const PageQueueTicketNew = () => {
         Get a Ticket
       </h1>
       <p className="text-center text-2xl">Welcome to the digital queue.</p>
-      <p className="break-all text-center text-2xl">
-        Get a ticket for <b>"{queryGetQueue.data.name}"</b> now.
+      <p className="text-center text-2xl">
+        Get a ticket for{' '}
+        <b className="break-all">"{queryGetQueue.data.name}"</b> now.
       </p>
       <div className="grid justify-center">
         <button onClick={onTicketPost} className="btn btn-primary btn-lg">

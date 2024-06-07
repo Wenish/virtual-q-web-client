@@ -55,7 +55,7 @@ const PageQueueQrCode = () => {
           <div className="grid justify-center">
             <Link
               to={urlQrCode}
-              className="text-center text-2xl font-bold underline"
+              className="break-all text-center text-2xl font-bold underline"
             >
               {urlQrCode}
             </Link>
