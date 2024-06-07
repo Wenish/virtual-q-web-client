@@ -38,6 +38,12 @@ const PageQueueQrCode = () => {
           value={urlQrCode}
           height={'100%'}
           width={'100%'}
+          imageSettings={{
+            src: '/appIcon.svg',
+            height: 10,
+            width: 10,
+            excavate: true,
+          }}
         />
       </div>
       <div>

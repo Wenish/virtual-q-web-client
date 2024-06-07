@@ -29,7 +29,7 @@ describe('TheNavbar Component', () => {
       </BrowserRouter>
     )
 
-    expect(screen.getByText(/virtual q/i)).toBeInTheDocument()
+    expect(screen.getByText(/virtual/i)).toBeInTheDocument()
   })
 
   it('displays the username when logged in', () => {

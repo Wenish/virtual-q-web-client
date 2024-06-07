@@ -6,8 +6,9 @@ const TheNavbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
-          Virtual Q
+        <Link to="/" className="btn btn-ghost gap-1 text-xl">
+          Virtual
+          <img className="h-6 w-6" alt="" src={'/appIcon.svg'} />
         </Link>
       </div>
       {isLoggedIn() && (
