@@ -46,9 +46,6 @@ const QueuesListItem: React.FC<{
               </Link>
             </li>
             <li>
-              <div>Delete tickets</div>
-            </li>
-            <li>
               <Link to={`/queues/${item.id}/edit`}>Edit queue</Link>
             </li>
             <li>

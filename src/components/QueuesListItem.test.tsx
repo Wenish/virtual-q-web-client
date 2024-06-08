@@ -32,9 +32,7 @@ describe('QueuesListItem Component', () => {
     expect(screen.getByText('Open')).toBeInTheDocument()
     expect(screen.getByText('QR-Code site')).toBeInTheDocument()
     expect(screen.getByText('Tickets call site')).toBeInTheDocument()
-    expect(screen.getByText('Delete tickets')).toBeInTheDocument()
     expect(screen.getByText('Edit queue')).toBeInTheDocument()
-    expect(screen.getByText('Mock Delete')).toBeInTheDocument()
   })
 
   it('should navigate to the correct URLs', () => {
