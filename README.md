@@ -15,7 +15,7 @@ https://nodejs.org/
 
 #### 2. Install the project dependencies.
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `npm ci`
 
@@ -31,25 +31,25 @@ Run this command in the root folder of the project:
 
 #### 1. Install dependencies
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `npm ci`
 
 #### 2. Build application
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `npm run build`
 
 ## Run Lint
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `npm run lint`
 
 ## Run Unit Tests
 
-Run this command in the root folder of the project:
+Run this command in the root folder of the repository:
 
 `npm run test`
 
