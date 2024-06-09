@@ -52,6 +52,19 @@ export const virtualqApi = {
       }
       return axios.get<TicketsGetResponse>(url, { headers })
     },
+    id: {
+      patch: (id: number, body: TicketPatchBody, token: string) => {
+        const url = `${baseUrl}/tickets/${id}/`
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        }
+        return axios.patch<
+          TicketPatchResponse,
+          AxiosResponse<TicketPatchResponse, TicketPatchBody>,
+          TicketPatchBody
+        >(url, body, { headers })
+      },
+    },
   },
   auth: {
     token: {
@@ -152,6 +165,12 @@ type TicketsGetResponse = {
   previous: string
   results: Ticket[]
 }
+
+type TicketPatchBody = {
+  status?: number
+}
+
+type TicketPatchResponse = Ticket
 
 export type TicketsGetParams = {
   queue_id?: number

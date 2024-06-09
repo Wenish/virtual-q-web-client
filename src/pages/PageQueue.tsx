@@ -1,5 +1,4 @@
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import { useAuth } from '../hooks/useAuth'
 import { useParams } from 'react-router-dom'
 import TicketsList from '../components/TicketsList'
@@ -59,18 +58,13 @@ const PageQueue = () => {
   const [changeTicketStatusSuccess, setChangeTicketStatusSuccess] =
     useState(false)
 
-  const endpointTicket = (ticketId: number) =>
-    `${import.meta.env.VITE_HOST_API}/tickets/${ticketId}/`
   const mutationTicketStatus = useMutation({
     mutationFn: (item: { id: number; status: number }) => {
-      return axios.patch(
-        endpointTicket(item.id),
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.tickets.id.patch(
+        item.id,
         { status: item.status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        token
       )
     },
     onSuccess: () => {
