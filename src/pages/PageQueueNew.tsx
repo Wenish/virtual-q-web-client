@@ -1,26 +1,18 @@
 import { useMutation } from '@tanstack/react-query'
 import FormQueue, { FormQueueData } from '../components/FormQueue'
-import axios, { AxiosResponse } from 'axios'
 import { useAuth } from '../hooks/useAuth'
 import { SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { QueuePostBody, virtualqApi } from '../api/virtualq.api'
 
 const PageQueueNew = () => {
   const { token, decodedToken } = useAuth()
   const navigate = useNavigate()
 
-  const endpointQueues = `${import.meta.env.VITE_HOST_API}/queues/`
   const mutation = useMutation({
     mutationFn: (formData: QueuePostBody) => {
-      return axios.post<
-        QueuePostResponse,
-        AxiosResponse<QueuePostResponse, QueuePostBody>,
-        QueuePostBody
-      >(endpointQueues, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.queues.post(formData, token)
     },
     onSuccess: () => {
       navigate('/queues-new/success')
@@ -52,16 +44,3 @@ const PageQueueNew = () => {
 }
 
 export default PageQueueNew
-
-type QueuePostResponse = {
-  createdAt: string
-  modifiedAt: string
-  id: number
-  name: string
-  user: number
-}
-
-type QueuePostBody = {
-  name: string
-  user: number
-}
