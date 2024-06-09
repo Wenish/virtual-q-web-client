@@ -119,6 +119,16 @@ export const virtualqApi = {
         },
       },
     },
+    register: {
+      post: (body: AuthRegisterPostBody) => {
+        const url = `${baseUrl}/auth/register/`
+        return axios.post<
+          AuthRegisterPostResponse,
+          AxiosResponse<AuthRegisterPostResponse, AuthRegisterPostBody>,
+          AuthRegisterPostBody
+        >(url, body)
+      },
+    },
   },
 }
 
@@ -220,7 +230,7 @@ export type TicketPostBody = {
   user: number
 }
 
-/* ---------------------- Types Token ---------------------- */
+/* ---------------------- Types Auth ---------------------- */
 
 type AuthTokenPostResponse = {
   refresh: string
@@ -238,4 +248,16 @@ type AuthTokenRefreshPostResponse = {
 
 type AuthTokenRefreshPostBody = {
   refresh: string
+}
+
+type AuthRegisterPostResponse = {
+  username: string
+  email: string
+}
+
+type AuthRegisterPostBody = {
+  email: string
+  username: string
+  password: string
+  password2: string
 }

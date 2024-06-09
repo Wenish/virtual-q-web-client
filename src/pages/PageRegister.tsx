@@ -1,15 +1,14 @@
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import FormRegister, { FormRegisterData } from '../components/FormRegister'
 import { useState } from 'react'
-import { useRegister } from '../hooks/useRegister'
 import { SubmitHandler } from 'react-hook-form'
 import axios from 'axios'
+import { virtualqApi } from '../api/virtualq.api'
 
 const PageRegister = () => {
   const [isSubmittingRegisterForm, setIsSubmittingRegisterForm] =
     useState(false)
   const [registerError, setRegisterError] = useState<string[]>([])
-  const { register } = useRegister()
   const [searchParams] = useSearchParams()
   const redirect = searchParams.get('redirect')
 
@@ -20,7 +19,7 @@ const PageRegister = () => {
   ) => {
     try {
       setIsSubmittingRegisterForm(true)
-      await register(formData)
+      await virtualqApi.auth.register.post(formData)
       navigate(`/login?redirect=${encodeURIComponent(redirect || '')}`)
     } catch (error) {
       console.error('Register failed', error)
