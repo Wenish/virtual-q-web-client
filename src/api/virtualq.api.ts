@@ -25,6 +25,15 @@ export const virtualqApi = {
       }
       return axios.get<QueuesResponse>(url, { headers })
     },
+    id: {
+      delete: (id: number, token: string) => {
+        const url = `${baseUrl}/queues/${id}/`
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        }
+        return axios.delete(url, { headers })
+      },
+    },
   },
   tickets: {},
   auth: {

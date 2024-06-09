@@ -1,5 +1,4 @@
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import { useAuth } from '../hooks/useAuth'
 import QueuesList from '../components/QueuesList'
 import { Link } from 'react-router-dom'
@@ -25,15 +24,10 @@ const PageMeQueues = () => {
 
   const [deleteQueueSuccess, setDeleteQueueSuccess] = useState(false)
 
-  const endpointQueue = (queueId: number) =>
-    `${import.meta.env.VITE_HOST_API}/queues/${queueId}/`
   const mutationDeleteQueue = useMutation({
     mutationFn: (id: number) => {
-      return axios.delete(endpointQueue(id), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.queues.id.delete(id, token)
     },
     onSuccess: () => {
       setDeleteQueueSuccess(true)
