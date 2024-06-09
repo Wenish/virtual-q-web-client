@@ -1,46 +1,42 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import { useAuth } from '../hooks/useAuth'
 import { useParams } from 'react-router-dom'
+import { virtualqApi } from '../api/virtualq.api'
 
 const PageQueueTicketsCall = () => {
   const { queueId } = useParams()
   const { token } = useAuth()
 
-  const endpointQueue = `${import.meta.env.VITE_HOST_API}/queues/${queueId}/`
-
   const queryGetQueue = useQuery({
     queryKey: ['queues', queueId],
-    queryFn: () =>
-      axios
-        .get<QueueGetResponse>(endpointQueue, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => res.data),
+    queryFn: () => {
+      if (!token) throw 'No Token avaiable'
+      return virtualqApi.queues.id
+        .get(Number(queueId), token)
+        .then((res) => res.data)
+    },
   })
-
-  const endpointTickets = (status: number) =>
-    `${import.meta.env.VITE_HOST_API}/tickets/?queue_id=${queueId}&status=${status}`
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  }
-  const getQueueTicketsByStatus = (status: number) =>
-    axios
-      .get<TicketsGetResponse>(endpointTickets(status), { headers })
-      .then((res) => res.data)
 
   const queryGetQueueTicketsNew = useQuery({
     queryKey: ['tickets', queueId, 1],
-    queryFn: () => getQueueTicketsByStatus(1),
+    queryFn: () => {
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.tickets
+        .get({ queue_id: Number(queueId), status: 1 }, token)
+        .then((res) => res.data)
+    },
     placeholderData: keepPreviousData,
     refetchInterval: 10000,
   })
 
   const queryGetQueueTicketsInProgress = useQuery({
     queryKey: ['tickets', queueId, 2],
-    queryFn: () => getQueueTicketsByStatus(2),
+    queryFn: () => {
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.tickets
+        .get({ queue_id: Number(queueId), status: 2 }, token)
+        .then((res) => res.data)
+    },
     placeholderData: keepPreviousData,
     refetchInterval: 10000,
   })
@@ -102,26 +98,3 @@ const PageQueueTicketsCall = () => {
 }
 
 export default PageQueueTicketsCall
-
-type QueueGetResponse = {
-  createdAt: string
-  modifiedAt: string
-  id: number
-  name: string
-  user: number
-}
-
-type TicketsGetResponse = {
-  count: number
-  next: string
-  previous: string
-  results: {
-    createdAt: string
-    modifiedAt: string
-    id: number
-    number: number
-    status: number
-    queue: number
-    user: number
-  }[]
-}
