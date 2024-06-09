@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import { QRCodeSVG } from 'qrcode.react'
 import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { virtualqApi } from '../api/virtualq.api'
 
 const PageQueueQrCode = () => {
   const { queueId } = useParams()
@@ -10,17 +10,14 @@ const PageQueueQrCode = () => {
 
   const urlQrCode = `${window.location.origin}/queues/${queueId}/ticket-new`
 
-  const endpointQueue = `${import.meta.env.VITE_HOST_API}/queues/${queueId}/`
   const { isPending, error, data } = useQuery({
     queryKey: ['queues', queueId],
-    queryFn: () =>
-      axios
-        .get<QueueGetResponse>(endpointQueue, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => res.data),
+    queryFn: () => {
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.queues.id
+        .get(Number(queueId), token)
+        .then((res) => res.data)
+    },
   })
 
   if (isPending) return 'Loading...'
@@ -67,11 +64,3 @@ const PageQueueQrCode = () => {
 }
 
 export default PageQueueQrCode
-
-type QueueGetResponse = {
-  createdAt: string
-  modifiedAt: string
-  id: number
-  name: string
-  user: number
-}
