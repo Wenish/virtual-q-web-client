@@ -33,6 +33,17 @@ export const virtualqApi = {
         }
         return axios.get<QueueGetResponse>(url, { headers })
       },
+      patch: (id: number, body: QueuePatchBody, token: string) => {
+        const url = `${baseUrl}/queues/${id}/`
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        }
+        return axios.patch<
+          QueuePatchResponse,
+          AxiosResponse<QueuePatchResponse, QueuePatchBody>,
+          QueuePatchBody
+        >(url, body, { headers })
+      },
       delete: (id: number, token: string) => {
         const url = `${baseUrl}/queues/${id}/`
         const headers = {
@@ -141,6 +152,12 @@ export type QueuePostResponse = {
 }
 
 type QueueGetResponse = Queue
+
+type QueuePatchBody = {
+  name?: string
+}
+
+type QueuePatchResponse = Queue
 
 export type QueuePostBody = {
   name: string
