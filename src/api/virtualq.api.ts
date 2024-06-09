@@ -54,6 +54,17 @@ export const virtualqApi = {
     },
   },
   tickets: {
+    post: (body: TicketPostBody, token: string) => {
+      const url = `${baseUrl}/tickets/`
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      }
+      return axios.post<
+        TicketPostResponse,
+        AxiosResponse<TicketPostResponse, TicketPostBody>,
+        TicketPostBody
+      >(url, body, { headers })
+    },
     get: (params: TicketsGetParams, token: string) => {
       const urlWithParams = new URL(`${baseUrl}/tickets/`)
       urlWithParams.search = objectToSearchParams(params).toString()
@@ -104,23 +115,26 @@ export const virtualqApi = {
   },
 }
 
-function objectToSearchParams(params: SearchParams): URLSearchParams {
-  const searchParams = new URLSearchParams()
+function objectToSearchParams(params: SearchParams): string {
+  const searchParams: string[] = []
+
   for (const param in params) {
-    if (typeof params[param] === 'object') {
-      ;(params[param] as string[]).forEach((item) => {
-        searchParams.append(param, item)
-      })
+    if (Array.isArray(params[param])) {
+      const valueArray = params[param] as (string | number)[]
+      searchParams.push(
+        `${encodeURIComponent(param)}=${valueArray.map((item) => encodeURIComponent(item.toString())).join(',')}`
+      )
     } else {
-      searchParams.append(param, params[param] as string)
+      searchParams.push(
+        `${encodeURIComponent(param)}=${encodeURIComponent(params[param].toString())}`
+      )
     }
   }
-  return searchParams
+
+  return searchParams.length > 0 ? `?${searchParams.join('&')}` : ''
 }
 
-type SearchParams = {
-  [key: string]: string | number | string[]
-}
+type SearchParams = Record<string, string | number | (string | number)[]>
 
 /* -------------------- Types Queue ------------------------ */
 export type Queue = {
@@ -143,13 +157,7 @@ export type QueuesGetParams = {
   page?: number
 }
 
-export type QueuePostResponse = {
-  createdAt: string
-  modifiedAt: string
-  id: number
-  name: string
-  user: number
-}
+export type QueuePostResponse = Queue
 
 type QueueGetResponse = Queue
 
@@ -192,6 +200,16 @@ type TicketPatchResponse = Ticket
 export type TicketsGetParams = {
   queue_id?: number
   status?: number
+  user__id?: number
+  status__in?: number[]
+}
+
+export type TicketPostResponse = Ticket
+
+export type TicketPostBody = {
+  queue: number
+  status: number
+  user: number
 }
 
 /* ---------------------- Types Token ---------------------- */

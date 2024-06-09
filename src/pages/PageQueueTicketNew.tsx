@@ -1,58 +1,50 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import axios, { AxiosResponse } from 'axios'
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import { TicketPostBody, virtualqApi } from '../api/virtualq.api'
 
 const PageQueueTicketNew = () => {
   const { queueId } = useParams()
   const { token, decodedToken } = useAuth()
   const navigate = useNavigate()
 
-  const endpointQueue = `${import.meta.env.VITE_HOST_API}/queues/${queueId}/`
   const queryGetQueue = useQuery({
     queryKey: ['queues', queueId],
-    queryFn: () =>
-      axios
-        .get<QueueGetResponse>(endpointQueue, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => res.data),
+    queryFn: () => {
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.queues.id
+        .get(Number(queueId), token)
+        .then((res) => res.data)
+    },
   })
-
-  const endpointTickets = `${import.meta.env.VITE_HOST_API}/tickets/`
 
   const accessTokenData = decodedToken()
   const userId = accessTokenData?.user_id
-  const endpointTicketsQueueUser = `${endpointTickets}?queue_id=${queueId}&user__id=${userId}&status__in=1,2`
 
   const queryGetUserQueueTickets = useQuery({
     queryKey: ['tickets', queueId, userId, 1, 2],
-    queryFn: () =>
-      axios
-        .get<TicketsGetResponse>(endpointTicketsQueueUser, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+    queryFn: () => {
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.tickets
+        .get(
+          {
+            queue_id: Number(queueId),
+            user__id: userId,
+            status__in: [1, 2],
           },
-        })
-        .then((res) => res.data),
+          token
+        )
+        .then((res) => res.data)
+    },
     placeholderData: keepPreviousData,
     refetchInterval: 5000,
   })
 
   const mutationPostTicket = useMutation({
     mutationFn: (formData: TicketPostBody) => {
-      return axios.post<
-        TicketPostResponse,
-        AxiosResponse<TicketPostResponse, TicketPostBody>,
-        TicketPostBody
-      >(endpointTickets, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.tickets.post(formData, token)
     },
     onSuccess: (response) => {
       navigate(`/tickets/${response.data.id}`)
@@ -114,36 +106,3 @@ const PageQueueTicketNew = () => {
 }
 
 export default PageQueueTicketNew
-
-type QueueGetResponse = {
-  createdAt: string
-  modifiedAt: string
-  id: number
-  name: string
-  user: number
-}
-
-type TicketPostResponse = {
-  createdAt: string
-  modifiedAt: string
-  id: number
-  number: number
-  queue: number
-  status: number
-  user: number
-}
-
-type TicketPostBody = {
-  queue: number
-  status: number
-  user: number
-}
-
-type TicketsGetResponse = {
-  count: number
-  next: string
-  previous: string
-  results: {
-    id: number
-  }[]
-}
