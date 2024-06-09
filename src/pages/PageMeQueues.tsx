@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth'
 import QueuesList from '../components/QueuesList'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { virtualqApi } from '../api/virtualq.api'
 
 const PageMeQueues = () => {
   const [page, setPage] = useState(1)
@@ -11,17 +12,14 @@ const PageMeQueues = () => {
   const accessTokenData = decodedToken()
   const userId = accessTokenData?.user_id
 
-  const endpointQueues = `${import.meta.env.VITE_HOST_API}/queues/?user__id=${userId}&page=${page}`
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ['meQueues', userId, page],
-    queryFn: () =>
-      axios
-        .get<QueuesResponse>(endpointQueues, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => res.data),
+    queryFn: () => {
+      if (!token) throw 'No token avaiable'
+      return virtualqApi.queues
+        .get({ user__id: userId, page }, token)
+        .then((res) => res.data)
+    },
     placeholderData: keepPreviousData,
   })
 
@@ -112,13 +110,3 @@ const PageMeQueues = () => {
 }
 
 export default PageMeQueues
-
-type QueuesResponse = {
-  count: number
-  next: string
-  previous: string
-  results: {
-    id: number
-    name: string
-  }[]
-}

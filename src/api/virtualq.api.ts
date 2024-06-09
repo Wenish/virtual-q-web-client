@@ -15,6 +15,16 @@ export const virtualqApi = {
         QueuePostBody
       >(url, body, { headers })
     },
+    get: (params: QueuesGetParams, token: string) => {
+      const urlWithParams = new URL(`${baseUrl}/queues/`)
+      urlWithParams.search = objectToSearchParams(params).toString()
+      const url = urlWithParams.toString()
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      }
+      return axios.get<QueuesResponse>(url, { headers })
+    },
   },
   tickets: {},
   auth: {
@@ -42,6 +52,41 @@ export const virtualqApi = {
       },
     },
   },
+}
+
+function objectToSearchParams(params: SearchParams): URLSearchParams {
+  const searchParams = new URLSearchParams()
+  for (const param in params) {
+    if (typeof params[param] === 'object') {
+      ;(params[param] as string[]).forEach((item) => {
+        searchParams.append(param, item)
+      })
+    } else {
+      searchParams.append(param, params[param] as string)
+    }
+  }
+  return searchParams
+}
+
+type SearchParams = {
+  [key: string]: string | number | string[]
+}
+
+export type Queue = {
+  id: number
+  name: string
+}
+
+export type QueuesResponse = {
+  count: number
+  next: string
+  previous: string
+  results: Queue[]
+}
+
+export type QueuesGetParams = {
+  user__id?: number
+  page?: number
 }
 
 export type QueuePostResponse = {
