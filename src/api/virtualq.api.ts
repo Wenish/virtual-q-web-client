@@ -23,9 +23,16 @@ export const virtualqApi = {
       const headers = {
         Authorization: `Bearer ${token}`,
       }
-      return axios.get<QueuesResponse>(url, { headers })
+      return axios.get<QueuesGetResponse>(url, { headers })
     },
     id: {
+      get: (id: number, token: string) => {
+        const url = `${baseUrl}/queues/${id}/`
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        }
+        return axios.get<QueueGetResponse>(url, { headers })
+      },
       delete: (id: number, token: string) => {
         const url = `${baseUrl}/queues/${id}/`
         const headers = {
@@ -35,7 +42,17 @@ export const virtualqApi = {
       },
     },
   },
-  tickets: {},
+  tickets: {
+    get: (params: TicketsGetParams, token: string) => {
+      const urlWithParams = new URL(`${baseUrl}/tickets/`)
+      urlWithParams.search = objectToSearchParams(params).toString()
+      const url = urlWithParams.toString()
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      }
+      return axios.get<TicketsGetResponse>(url, { headers })
+    },
+  },
   auth: {
     token: {
       post: (body: AuthTokenPostBody) => {
@@ -81,12 +98,16 @@ type SearchParams = {
   [key: string]: string | number | string[]
 }
 
+/* -------------------- Types Queue ------------------------ */
 export type Queue = {
+  createdAt: string
+  modifiedAt: string
   id: number
   name: string
+  user: number
 }
 
-export type QueuesResponse = {
+export type QueuesGetResponse = {
   count: number
   next: string
   previous: string
@@ -106,10 +127,38 @@ export type QueuePostResponse = {
   user: number
 }
 
+type QueueGetResponse = Queue
+
 export type QueuePostBody = {
   name: string
   user: number
 }
+
+/* --------------------- Types Ticket ---------------------- */
+
+type Ticket = {
+  createdAt: string
+  modifiedAt: string
+  id: number
+  number: number
+  status: number
+  queue: number
+  user: number
+}
+
+type TicketsGetResponse = {
+  count: number
+  next: string
+  previous: string
+  results: Ticket[]
+}
+
+export type TicketsGetParams = {
+  queue_id?: number
+  status?: number
+}
+
+/* ---------------------- Types Token ---------------------- */
 
 type AuthTokenPostResponse = {
   refresh: string
