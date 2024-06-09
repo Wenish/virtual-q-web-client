@@ -1,13 +1,10 @@
-import axios, { AxiosResponse } from 'axios'
 import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import { AccessTokenData, AuthContext, User } from '../contexts/AuthContext'
+import { virtualqApi } from '../api/virtualq.api'
 
 const localStorageUserKey = 'user'
 const localStorageAccessTokenKey = 'accessToken'
 const localStorageRefreshTokenKey = 'refreshToken'
-
-const endpointToken = `${import.meta.env.VITE_HOST_API}/auth/token/`
-const endpointTokenRefresh = `${import.meta.env.VITE_HOST_API}/auth/token/refresh/`
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(() => {
@@ -32,14 +29,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }
 
   const login = async (username: string, password: string) => {
-    const response = await axios.post<
-      AuthTokenResponse,
-      AxiosResponse<AuthTokenResponse, AuthTokenBody>,
-      AuthTokenBody
-    >(endpointToken, {
-      username,
-      password,
-    })
+    const response = await virtualqApi.auth.token.post({ username, password })
     const user: User = { username }
     const accessToken: string = response.data.access
     const refreshToken: string = response.data.refresh
@@ -82,11 +72,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     try {
       if (!refreshToken) throw 'No refresh token'
 
-      const response = await axios.post<
-        AuthTokenRefreshResponse,
-        AxiosResponse<AuthTokenRefreshResponse, AuthTokenRefreshBody>,
-        AuthTokenRefreshBody
-      >(endpointTokenRefresh, {
+      const response = await virtualqApi.auth.token.refresh.post({
         refresh: refreshToken,
       })
 
@@ -127,21 +113,3 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 }
 
 export default AuthProvider
-
-type AuthTokenResponse = {
-  refresh: string
-  access: string
-}
-
-type AuthTokenBody = {
-  username: string
-  password: string
-}
-
-type AuthTokenRefreshResponse = {
-  access: string
-}
-
-type AuthTokenRefreshBody = {
-  refresh: string
-}
