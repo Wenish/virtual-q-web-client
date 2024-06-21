@@ -1,4 +1,3 @@
-// PageTicket.test.tsx
 import { screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { describe, it, expect, vi, Mock } from 'vitest'
@@ -6,7 +5,6 @@ import PageTicket from './PageTicket'
 import { useQuery } from '@tanstack/react-query'
 import { renderWithRouter } from '../../tests/testRenderWithRouter'
 
-// Mock useAuth hook
 vi.mock('../hooks/useAuth', () => ({
   useAuth: vi.fn().mockReturnValue({
     token: 'mocked-token',
@@ -14,7 +12,6 @@ vi.mock('../hooks/useAuth', () => ({
   }),
 }))
 
-// Mock useQuery hook from @tanstack/react-query
 vi.mock('@tanstack/react-query', () => ({
   useQuery: vi.fn(),
 }))
