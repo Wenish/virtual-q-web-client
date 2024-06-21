@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query'
 import { renderWithRouter } from '../../tests/testRenderWithRouter'
 import PageMeQueues from './PageMeQueues'
 
-// Mock useQuery from @tanstack/react-query
 vi.mock('@tanstack/react-query', () => ({
   useQuery: vi.fn(),
   useMutation: vi.fn(),
