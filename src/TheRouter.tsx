@@ -15,6 +15,7 @@ import PageQueueEditSuccess from './pages/PageQueueEditSuccess'
 import PageQueue from './pages/PageQueue'
 import PageTicket from './pages/PageTicket'
 import PageQueueTicketsCall from './pages/PageQueueTicketsCall'
+import PageStats from './pages/PageStats'
 
 const router = createBrowserRouter([
   {
@@ -133,6 +134,16 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <PageTicket />,
+      },
+    ],
+  },
+  {
+    path: '/stats',
+    element: <LayoutBasic />,
+    children: [
+      {
+        path: '',
+        element: <PageStats />,
       },
     ],
   },

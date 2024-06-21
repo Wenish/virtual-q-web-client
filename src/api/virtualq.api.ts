@@ -130,6 +130,12 @@ export const virtualqApi = {
       },
     },
   },
+  stats: {
+    get: () => {
+      const url = `${baseUrl}/stats/`
+      return axios.get<StatsGetReponse>(url)
+    },
+  },
 }
 
 function objectToSearchParams(params: SearchParams): string {
@@ -260,4 +266,16 @@ type AuthRegisterPostBody = {
   username: string
   password: string
   password2: string
+}
+
+/* ---------------------- Types Stats ---------------------- */
+
+type StatsGetReponse = {
+  total_queues: number
+  total_tickets: number
+  tickets_by_status: {
+    '1'?: number
+    '2'?: number
+    '3'?: number
+  }
 }

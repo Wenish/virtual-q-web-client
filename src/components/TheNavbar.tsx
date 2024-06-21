@@ -48,6 +48,9 @@ const TheNavbar = () => {
                 <Link to="/me/queues">My Queues</Link>
               </li>
               <li>
+                <Link to="/stats">Overall app stats</Link>
+              </li>
+              <li>
                 <button onClick={logout}>Logout</button>
               </li>
             </ul>
