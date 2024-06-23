@@ -31,7 +31,7 @@ const PageStats = () => {
       <div className="stats shadow">
         <div className="stat">
           <div className="stat-title">Tickets New</div>
-          <div className="stat-value">{data.tickets_by_status[1]}</div>
+          <div className="stat-value">{data.tickets_by_status[1] || 0}</div>
         </div>
 
         <div className="stat">
